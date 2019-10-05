@@ -1,7 +1,11 @@
 package com.gabrielcamp.workshopmongo.repository;
 
-import org.springframework.data.mongodb.repository.config.MongoRepositoryConfigurationExtension;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public class UserRepository extends MongoRepositoryConfigurationExtension {
+import com.gabrielcamp.workshopmongo.domain.User;
+
+@Repository
+public interface UserRepository extends  MongoRepository<User, String>{
 
 }
