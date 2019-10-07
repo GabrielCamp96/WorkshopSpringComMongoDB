@@ -31,6 +31,11 @@ public class UserService {
 		res = repo.save(res);
 		return res;
 	}
+	
+	public void delete(String id) {
+		User user = findById(id);
+		repo.delete(user);
+	}
 
 	public static User FromDTO(UserDTO obj) {
 		User resp = new User();
