@@ -1,39 +1,29 @@
-package com.gabrielcamp.workshopmongo.domain;
+package com.gabrielcamp.workshopmongo.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.gabrielcamp.workshopmongo.domain.Post;
 
-import com.gabrielcamp.workshopmongo.dto.AuthorDTO;
-
-@Document
-public class Post implements Serializable{
+public class PostDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	private String id;
 	private Date date;
 	private String title;
 	private String body;
 	
-	private List<AuthorDTO> author = new ArrayList<>();
-
-	public Post() {
+	public PostDTO() {
 		
 	}
 
-	public Post(String id, Date date, String title, String body) {
+	public PostDTO(Post post) {
 		super();
-		this.id = id;
-		this.date = date;
-		this.title = title;
-		this.body = body;
+		this.id = post.getId();
+		this.date = post.getDate();
+		this.title = post.getTitle();
+		this.body = post.getBody();
 	}
 
 	public String getId() {
@@ -84,7 +74,7 @@ public class Post implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Post other = (Post) obj;
+		PostDTO other = (PostDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
