@@ -44,7 +44,8 @@ public class CommentService {
 		
 		AuthorDTO author = new AuthorDTO(user);
 		res.setAuthor(author);
-
+		post.getComments().add(res);
+		
 		res = repo.save(res);
 		postRepository.save(post);
 		
