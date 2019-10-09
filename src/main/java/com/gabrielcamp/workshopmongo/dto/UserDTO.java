@@ -1,9 +1,13 @@
 package com.gabrielcamp.workshopmongo.dto;
 
+import java.io.Serializable;
+
 import com.gabrielcamp.workshopmongo.domain.User;
 
-public class UserDTO {
+public class UserDTO implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private String id;
 	private String name;
 	private String email;

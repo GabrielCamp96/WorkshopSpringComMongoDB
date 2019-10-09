@@ -7,14 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gabrielcamp.workshopmongo.domain.Post;
+import com.gabrielcamp.workshopmongo.domain.User;
+import com.gabrielcamp.workshopmongo.dto.AuthorDTO;
+import com.gabrielcamp.workshopmongo.dto.PostDTO;
 import com.gabrielcamp.workshopmongo.repository.PostRepository;
+import com.gabrielcamp.workshopmongo.repository.UserRepository;
 import com.gabrielcamp.workshopmongo.service.exception.ObjectNotFoundException;
 
 @Service
 public class PostService {
 
 	@Autowired
-	PostRepository repo;
+	private PostRepository repo;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	public List<Post> findAll() {
 		return repo.findAll();
@@ -25,12 +32,29 @@ public class PostService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Registro não encontrado no Banco de Dados."));
 	}
 	
-//	public Post insert(PostDTO obj) {
-//		Post res = FromDTO(obj);
-//		res = repo.save(res);
-//		return res;
-//	}
+	public Post insert(PostDTO obj, String id_user) {
+		Post res = FromDTO(obj);
+		User user = userRepository.findById(id_user).get();
+		AuthorDTO author = new AuthorDTO(user);
+		res.setAuthor(author);
+
+		res = repo.save(res);
+		
+		user.getPosts().add(res);
+		userRepository.save(user);
+		
+		return res;
+	}
 	
+	
+
+	public static Post FromDTO(PostDTO obj) {
+		Post res = new Post();
+		res.setTitle(obj.getTitle());
+		res.setDate(obj.getDate());
+		res.setBody(obj.getBody());
+		return res;
+	}
 //	public void delete(String id) {
 //		Post user = findById(id);
 //		repo.delete(user);
@@ -47,16 +71,6 @@ public class PostService {
 //		user.setName(obj.getName() != null? obj.getName() : user.getName());
 //		user.setEmail(obj.getEmail() != null? obj.getEmail() : user.getEmail());
 //		return repo.save(user);
-//	}
-
-//	public static Post FromDTO(PostDTO obj) {
-//		Post resp = new Post();
-//		
-//		resp.setId(obj.getId());
-//		resp.setName(obj.getName());
-//		resp.setEmail(obj.getEmail());
-//		
-//		return resp;
 //	}
 	
 }

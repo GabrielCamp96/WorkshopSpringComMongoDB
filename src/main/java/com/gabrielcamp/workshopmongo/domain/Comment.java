@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "comment")
 public class Comment implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -15,16 +15,18 @@ public class Comment implements Serializable{
 	private String id;
 	private String text;
 	private Date date;
+	private User author;
 	
 	public Comment() {
 		
 	}
 
-	public Comment(String id, String text, Date date) {
+	public Comment(String id, String text, Date date, User author) {
 		super();
 		this.id = id;
 		this.text = text;
 		this.date = date;
+		this.author = author;
 	}
 
 	public String getId() {
@@ -49,6 +51,14 @@ public class Comment implements Serializable{
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	@Override
