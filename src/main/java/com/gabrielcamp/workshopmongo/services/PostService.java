@@ -1,5 +1,8 @@
 package com.gabrielcamp.workshopmongo.services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +54,16 @@ public class PostService {
 		repo.delete(post);
 	}
 
+	public Post updateData(PostDTO obj) {
+		Post post = repo.findById(obj.getId()).get();
+		post.setDate(obj.getTitle() != null || obj.getBody() != null ? 
+				Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()) : post.getDate());
+		post.setTitle(obj.getTitle() != null? obj.getTitle() : post.getTitle());
+		post.setBody(obj.getBody() != null? obj.getBody() : post.getBody());
+		
+		return repo.save(post);
+	}
+
 	public static Post FromDTO(PostDTO obj) {
 		Post res = new Post();
 		res.setTitle(obj.getTitle());
@@ -59,17 +72,5 @@ public class PostService {
 		return res;
 	}
 	
-//	public Post update(PostDTO obj) {
-//		Post user = findById(obj.getId());
-//		user = repo.save(user);
-//		return user;
-//	}
-	
-//	public Post updateData(PostDTO obj) {
-//		Post user = repo.findById(obj.getId()).get();
-//		user.setName(obj.getName() != null? obj.getName() : user.getName());
-//		user.setEmail(obj.getEmail() != null? obj.getEmail() : user.getEmail());
-//		return repo.save(user);
-//	}
 	
 }

@@ -46,17 +46,18 @@ public class PostResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody PostDTO post){
+		post.setId(id);
+		service.updateData(post);
+		return ResponseEntity.ok().build();
+	}
+
 	@RequestMapping(value = "/{id}" ,method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id){
 		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
 	
-//	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
-//	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody PostDTO user){
-//		user.setId(id);
-//		service.updateData(user);
-//		return ResponseEntity.ok().build();
-//	}
 	
 }
