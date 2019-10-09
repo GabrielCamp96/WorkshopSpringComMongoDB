@@ -64,6 +64,11 @@ public class PostService {
 		return repo.save(post);
 	}
 
+	public List<Post> search(String tag) {
+		List<Post> res = repo.findByTitleIsContaining(tag);
+		return res;
+	}
+	
 	public static Post FromDTO(PostDTO obj) {
 		Post res = new Post();
 		res.setTitle(obj.getTitle());

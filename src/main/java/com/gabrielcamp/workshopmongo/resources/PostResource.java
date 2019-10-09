@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -57,6 +58,15 @@ public class PostResource {
 	public ResponseEntity<Void> delete(@PathVariable String id){
 		service.delete(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@RequestMapping(value = "/findtitle")
+	public ResponseEntity<List<PostDTO>> findByTag(
+			@RequestParam(value = "title", defaultValue = "") String title)
+	{
+		List<Post> list = service.search(title);
+		List<PostDTO> listDto = list.stream().map(post -> new PostDTO(post)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	
