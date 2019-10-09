@@ -46,7 +46,10 @@ public class PostService {
 		return res;
 	}
 	
-	
+	public void delete(String id) {
+		Post post = findById(id);
+		repo.delete(post);
+	}
 
 	public static Post FromDTO(PostDTO obj) {
 		Post res = new Post();
@@ -55,10 +58,6 @@ public class PostService {
 		res.setBody(obj.getBody());
 		return res;
 	}
-//	public void delete(String id) {
-//		Post user = findById(id);
-//		repo.delete(user);
-//	}
 	
 //	public Post update(PostDTO obj) {
 //		Post user = findById(obj.getId());

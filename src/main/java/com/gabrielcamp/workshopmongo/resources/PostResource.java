@@ -41,16 +41,16 @@ public class PostResource {
 	@RequestMapping(value = "/{id_user}" ,method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody PostDTO post, @PathVariable String id_user) {
 		Post obj = service.insert(post, id_user);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+				.path("/posts/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-//	@RequestMapping(value = "/{id}" ,method = RequestMethod.DELETE)
-//	public ResponseEntity<Void> delete(@PathVariable String id){
-//		service.delete(id);
-//		return ResponseEntity.ok().build();
-//	}
+	@RequestMapping(value = "/{id}" ,method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String id){
+		service.delete(id);
+		return ResponseEntity.ok().build();
+	}
 	
 //	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
 //	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody PostDTO user){
