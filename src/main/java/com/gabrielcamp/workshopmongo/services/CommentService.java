@@ -1,5 +1,8 @@
 package com.gabrielcamp.workshopmongo.services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,20 +55,19 @@ public class CommentService {
 		return res;
 	}
 	
-//	public void delete(String id) {
-//		Comment post = findById(id);
-//		repo.delete(post);
-//	}
+	public void delete(String id) {
+		Comment post = findById(id);
+		repo.delete(post);
+	}
 
-//	public Comment updateData(CommentDTO obj) {
-//		Comment post = repo.findById(obj.getId()).get();
-//		post.setDate(obj.getTitle() != null || obj.getBody() != null ? 
-//				Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()) : post.getDate());
-//		post.setTitle(obj.getTitle() != null? obj.getTitle() : post.getTitle());
-//		post.setBody(obj.getBody() != null? obj.getBody() : post.getBody());
-//		
-//		return repo.save(post);
-//	}
+	public Comment updateData(CommentDTO obj) {
+		Comment comment = repo.findById(obj.getId()).get();
+		comment.setDate(obj.getText() != null ?
+				Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()) : comment.getDate());
+		comment.setText(obj.getText() != null? obj.getText() : comment.getText());
+		
+		return repo.save(comment);
+	}
 
 	public static Comment FromDTO(CommentDTO obj) {
 		Comment res = new Comment();

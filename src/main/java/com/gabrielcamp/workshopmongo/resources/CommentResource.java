@@ -43,22 +43,22 @@ public class CommentResource {
 			@PathVariable String id_post) {
 		Comment obj = service.insert(post, id_user, id_post);
 		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-				.path("/posts/{id}").buildAndExpand(obj.getId()).toUri();
+				.path("/comments/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-//	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
-//	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody CommentDTO post){
-//		post.setId(id);
-//		service.updateData(post);
-//		return ResponseEntity.ok().build();
-//	}
+	@RequestMapping(value = "/{id}" ,method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@PathVariable String id, @RequestBody CommentDTO comment){
+		comment.setId(id);
+		service.updateData(comment);
+		return ResponseEntity.ok().build();
+	}
 
-//	@RequestMapping(value = "/{id}" ,method = RequestMethod.DELETE)
-//	public ResponseEntity<Void> delete(@PathVariable String id){
-//		service.delete(id);
-//		return ResponseEntity.ok().build();
-//	}
+	@RequestMapping(value = "/{id}" ,method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String id){
+		service.delete(id);
+		return ResponseEntity.ok().build();
+	}
 	
 	
 }
