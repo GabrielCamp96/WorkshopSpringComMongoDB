@@ -32,10 +32,10 @@ public class PostResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<PostDTO> findById(@PathVariable String id) {
+	public ResponseEntity<Post> findById(@PathVariable String id) {
 		Post obj  = service.findById(id);
-		PostDTO res = new PostDTO(obj);
-		return ResponseEntity.ok().body(res);
+//		PostDTO res = new PostDTO(obj);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id_user}" ,method = RequestMethod.POST)

@@ -11,7 +11,8 @@ public class CommentDTO implements Serializable{
 
 	private String text;
 	private Date date;
-
+	private AuthorDTO author;
+	
 	public CommentDTO() {
 		
 	}
@@ -19,6 +20,7 @@ public class CommentDTO implements Serializable{
 	public CommentDTO(Comment comment) {
 		this.text = comment.getText();
 		this.date = comment.getDate();
+		this.author = comment.getAuthor();
 	}
 
 	public String getText() {
@@ -37,5 +39,12 @@ public class CommentDTO implements Serializable{
 		this.date = date;
 	}
 	
+	public AuthorDTO getAuthor() {
+		return author;
+	}
+	
+	public void setAuthor(AuthorDTO author) {
+		this.author = author;
+	}
 	
 }

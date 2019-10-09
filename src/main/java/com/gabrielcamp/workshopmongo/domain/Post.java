@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.gabrielcamp.workshopmongo.dto.AuthorDTO;
+import com.gabrielcamp.workshopmongo.dto.CommentDTO;
 
 @Document(collection = "post")
 public class Post implements Serializable{
@@ -23,7 +25,8 @@ public class Post implements Serializable{
 	
 	public AuthorDTO author;
 	
-	private List<Comment> comments = new ArrayList<>();
+	@DBRef
+	private List<CommentDTO> comments = new ArrayList<>();
 
 	public Post() {
 		
@@ -78,11 +81,11 @@ public class Post implements Serializable{
 		this.author = author;
 	}
 
-	public List<Comment> getComments() {
+	public List<CommentDTO> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(List<CommentDTO> comments) {
 		this.comments = comments;
 	}
 

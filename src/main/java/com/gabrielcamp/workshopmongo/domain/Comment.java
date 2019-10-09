@@ -6,6 +6,8 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.gabrielcamp.workshopmongo.dto.AuthorDTO;
+
 @Document(collection = "comment")
 public class Comment implements Serializable{
 
@@ -15,13 +17,13 @@ public class Comment implements Serializable{
 	private String id;
 	private String text;
 	private Date date;
-	private User author;
+	private AuthorDTO author;
 	
 	public Comment() {
 		
 	}
 
-	public Comment(String id, String text, Date date, User author) {
+	public Comment(String id, String text, Date date, AuthorDTO author) {
 		super();
 		this.id = id;
 		this.text = text;
@@ -53,11 +55,11 @@ public class Comment implements Serializable{
 		this.date = date;
 	}
 
-	public User getAuthor() {
+	public AuthorDTO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(User author) {
+	public void setAuthor(AuthorDTO author) {
 		this.author = author;
 	}
 
